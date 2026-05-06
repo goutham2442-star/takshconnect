@@ -8,6 +8,9 @@ from typing import List, Optional
 import fitz  # PyMuPDF
 import requests
 import tempfile
+from apscheduler.schedulers.background import BackgroundScheduler
+from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
 
 load_dotenv()
 
@@ -120,6 +123,62 @@ async def get_announcements():
             "color": "border-maroon"
         }
     ]
+
+# --- Internship Features ---
+
+@app.get("/api/internships")
+async def get_internships():
+    # Mock data for demo
+    return [
+        {
+            "id": "1",
+            "title": "Full Stack Web Development",
+            "provider": "IBM SkillsBuild",
+            "description": "Learn modern web technologies and build production apps.",
+            "branches": ["B.Tech CSE", "B.Tech IT", "MCA"],
+            "duration_weeks": 8,
+            "deadline": (datetime.now() + timedelta(days=3)).strftime("%Y-%m-%d"),
+            "apply_url": "https://skillsbuild.org",
+            "source": "IBM",
+            "is_free": True,
+            "has_certificate": True
+        },
+        {
+            "id": "2",
+            "title": "Data Analytics Intern",
+            "provider": "AICTE",
+            "description": "Analyze large datasets and generate insights for smart city projects.",
+            "branches": ["B.Tech AI&DS", "B.Tech CSE AI&ML"],
+            "duration_weeks": 12,
+            "deadline": (datetime.now() + timedelta(days=8)).strftime("%Y-%m-%d"),
+            "apply_url": "https://internship.aicte-india.org",
+            "source": "AICTE",
+            "is_free": True,
+            "has_certificate": True
+        },
+        {
+            "id": "3",
+            "title": "Embedded Systems Trainee",
+            "provider": "TATA Elxsi",
+            "description": "Work on automotive embedded systems and real-time kernels.",
+            "branches": ["ECE", "B.Tech CSE"],
+            "duration_weeks": 16,
+            "deadline": (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d"),
+            "apply_url": "https://tataelxsi.com",
+            "source": "Direct",
+            "is_free": True,
+            "has_certificate": True
+        }
+    ]
+
+def scrape_internships():
+    print("Scraping internships...")
+    # This would be the actual scraping logic
+    pass
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(scrape_internships, 'interval', hours=24)
+scheduler.start()
 
 if __name__ == "__main__":
     import uvicorn
