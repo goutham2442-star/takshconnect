@@ -10,7 +10,8 @@ import requests
 import tempfile
 from apscheduler.schedulers.background import BackgroundScheduler
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from fastapi.responses import StreamingResponse
+import asyncio
 
 load_dotenv()
 
@@ -175,6 +176,34 @@ def scrape_internships():
     print("Scraping internships...")
     # This would be the actual scraping logic
     pass
+
+@app.post("/api/chat/stream")
+async def chat_stream(data: ChatMessage):
+    if not model:
+        async def demo_gen():
+            yield "I'm currently in demo mode. Please configure GEMINI_API_KEY."
+        return StreamingResponse(demo_gen(), media_type="text/event-stream")
+
+    try:
+        prompt = (
+            "You are an academic assistant for Takshashila University students in Tamil Nadu, India. "
+            "Help with subjects like Data Structures, DBMS, Operating Systems, Computer Networks, Mathematics, "
+            "Chemistry, and other university syllabus topics. Be concise, use examples, and explain in simple English. "
+            f"Question: {data.message}"
+        )
+        
+        response = model.generate_content(prompt, stream=True)
+        
+        async def generate():
+            for chunk in response:
+                if chunk.text:
+                    yield chunk.text
+                await asyncio.sleep(0.01) # Small delay for smooth streaming
+        
+        return StreamingResponse(generate(), media_type="text/plain")
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(scrape_internships, 'interval', hours=24)
