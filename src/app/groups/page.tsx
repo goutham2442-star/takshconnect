@@ -35,7 +35,7 @@ export default function GroupsPage() {
         .on(
           "postgres_changes",
           { event: "INSERT", schema: "public", table: "messages", filter: `group_id=eq.${activeGroup.id}` },
-          (payload) => {
+          (payload: any) => {
             setMessages(prev => [...prev, payload.new]);
           }
         )

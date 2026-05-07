@@ -25,7 +25,7 @@ export default function EventsPage() {
       .on(
         "postgres_changes",
         { event: "UPDATE", schema: "public", table: "events" },
-        (payload) => {
+        (payload: any) => {
           setEvents(prev => prev.map(e => e.id === payload.new.id ? { ...e, rsvp_count: payload.new.rsvp_count } : e));
         }
       )

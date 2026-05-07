@@ -55,6 +55,10 @@ class MockSupabase:
                 {"period": 2, "subject": "DBMS", "room": "LH-102"},
                 {"period": 3, "subject": "Operating Systems", "room": "LH-103"},
             ]
+        elif self.table_name == "lost_found":
+            data = [
+                {"id": "1", "title": "Blue Laptop Bag", "category": "Bags", "description": "Found in Canteen", "location": "Canteen", "contact_info": "9876543210", "status": "lost", "created_at": "2026-05-01"}
+            ]
         
         return Result(data)
 

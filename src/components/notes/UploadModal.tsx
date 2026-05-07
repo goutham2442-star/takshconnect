@@ -45,7 +45,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
       const { data: storageData, error: storageError } = await supabase.storage
         .from("notes")
         .upload(fileName, file, {
-          onUploadProgress: (p) => setProgress((p.loaded / p.total) * 100),
+          onUploadProgress: (p: any) => setProgress((p.loaded / p.total) * 100),
         });
 
       if (storageError) throw storageError;
