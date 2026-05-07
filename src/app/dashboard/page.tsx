@@ -115,7 +115,7 @@ export default function DashboardPage() {
                 <Trophy className="absolute bottom-10 right-10 w-32 h-32 text-white/10" />
               </motion.div>
 
-              <div className="bg-navy dark:bg-black p-10 rounded-[48px] text-white border border-white/5 relative overflow-hidden group">
+              <div className="bg-navy dark:bg-navy p-10 rounded-[48px] text-white border border-white/5 relative overflow-hidden group">
                 <p className="text-orange-500 font-black uppercase tracking-[0.2em] text-[10px] mb-6">Curriculum Pulse</p>
                 <div className="space-y-6">
                   <div>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
           <div className="lg:col-span-4 space-y-8">
             
             {/* Today's Schedule (Exotic Timeline) */}
-            <div className="bg-navy dark:bg-black p-10 rounded-[48px] text-white border border-white/5 relative overflow-hidden">
+            <div className="bg-navy dark:bg-navy p-10 rounded-[48px] text-white border border-white/5 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-orange-600 via-gold to-orange-600" />
               <h3 className="text-xl font-playfair font-bold mb-8 flex items-center gap-2">
                 <Clock className="w-5 h-5 text-orange-500" /> Today's Pulse
@@ -233,7 +233,7 @@ export default function DashboardPage() {
               
               <button 
                 onClick={() => router.push('/internships')}
-                className="w-full mt-6 py-4 bg-navy text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-black transition-all shadow-xl shadow-navy/20"
+                className="w-full mt-6 py-4 bg-navy text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-navy transition-all shadow-xl shadow-navy/20"
               >
                 Explore All Opportunities
               </button>

@@ -61,7 +61,7 @@ export default function AdminDashboard() {
   if (loading) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-black flex">
+    <div className="min-h-screen bg-gray-50 dark:bg-navy flex">
       <Sidebar />
 
       <main className="flex-1 p-12 overflow-y-auto">
@@ -159,7 +159,7 @@ export default function AdminDashboard() {
                 </div>
               ))}
             </div>
-            <button className="w-full mt-8 py-4 bg-navy text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-black transition-all">
+            <button className="w-full mt-8 py-4 bg-navy text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-navy transition-all">
               View All Queue
             </button>
           </div>

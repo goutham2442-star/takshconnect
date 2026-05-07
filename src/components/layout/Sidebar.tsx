@@ -34,7 +34,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-72 bg-navy dark:bg-black p-8 flex flex-col justify-between h-screen sticky top-0 border-r border-white/5">
+    <aside className="w-72 bg-navy p-8 flex flex-col justify-between h-screen sticky top-0 border-r border-white/5">
       <div>
         <div className="flex items-center gap-4 mb-14 group cursor-pointer" onClick={() => router.push('/dashboard')}>
           <div className="w-12 h-12 bg-orange-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">

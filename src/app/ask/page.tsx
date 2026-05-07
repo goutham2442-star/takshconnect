@@ -79,7 +79,7 @@ export default function AskPage() {
       
       <main className="flex-1 flex overflow-hidden">
         {/* Chat History Sidebar */}
-        <div className="w-80 bg-gray-50 dark:bg-black/20 border-r border-gray-100 dark:border-white/5 flex-col h-full hidden lg:flex">
+        <div className="w-80 bg-gray-50 dark:bg-navy/20 border-r border-gray-100 dark:border-white/5 flex-col h-full hidden lg:flex">
           <div className="p-6">
             <button 
               onClick={() => setMessages([])}

@@ -49,7 +49,7 @@ export default function CGPAPage() {
           <div className="flex gap-4">
             <button 
               onClick={() => setSemesters([...semesters, { id: semesters.length + 1, subjects: [{ id: Date.now(), name: "", credits: 4, grade: "O" }] }])}
-              className="px-8 py-4 bg-navy text-white rounded-2xl font-bold flex items-center gap-2 hover:bg-black transition-colors"
+              className="px-8 py-4 bg-navy text-white rounded-2xl font-bold flex items-center gap-2 hover:bg-navy transition-colors"
             >
               <Plus className="w-5 h-5" /> Add Semester
             </button>

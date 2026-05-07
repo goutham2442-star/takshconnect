@@ -20,14 +20,14 @@
   --color-gold-light: #D4B96A;
   --color-gold-dark: #A88A35;
 
-  --color-navy: #0A0A1A;
-  --color-navy-surface: #111128;
-  --color-navy-card: #1A1A35;
+  --color-navy: #003366;
+  --color-navy-surface: #004080;
+  --color-navy-card: #00509E;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0A0A1A;
+    --background: #002244;
     --foreground: #ffffff;
   }
 }

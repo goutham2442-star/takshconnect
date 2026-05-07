@@ -95,7 +95,7 @@ export default function GroupsPage() {
       
       <main className="flex-1 flex overflow-hidden">
         {/* Groups List */}
-        <div className="w-[400px] bg-gray-50 dark:bg-black/20 border-r border-gray-100 dark:border-white/5 flex flex-col h-full">
+        <div className="w-[400px] bg-gray-50 dark:bg-navy/20 border-r border-gray-100 dark:border-white/5 flex flex-col h-full">
           <div className="p-8 space-y-8">
             <div className="flex items-center justify-between">
               <h2 className="text-3xl font-playfair font-bold text-navy dark:text-white">Study Hub</h2>

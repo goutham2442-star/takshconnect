@@ -18,7 +18,7 @@ export default function BottomNavBar() {
   ];
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-black/90 backdrop-blur-xl border-t border-gray-100 dark:border-white/5 z-50 px-6 py-4">
+    <nav className="lg:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-navy backdrop-blur-xl border-t border-gray-100 dark:border-white/5 z-50 px-6 py-4">
       <div className="flex items-center justify-between">
         {tabs.map((tab, i) => {
           const isActive = pathname === tab.path;
