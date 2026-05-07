@@ -134,7 +134,7 @@ export default function NotesPage() {
                 className="w-full py-4 pl-12 pr-4 text-navy focus:outline-none font-medium"
               />
             </div>
-            <div className="h-full w-[1px] bg-gray-100 hidden md:block" />
+            <div className="h-full w-px bg-gray-100 hidden md:block" />
             <select 
               value={dept}
               onChange={(e) => setDept(e.target.value)}
@@ -147,7 +147,7 @@ export default function NotesPage() {
               <option>MCA</option>
               <option>ECE</option>
             </select>
-            <div className="h-full w-[1px] bg-gray-100 hidden md:block" />
+            <div className="h-full w-px bg-gray-100 hidden md:block" />
             <select 
               value={sem}
               onChange={(e) => setSem(e.target.value)}
@@ -209,7 +209,7 @@ export default function NotesPage() {
         onClick={() => setIsUploadOpen(true)}
         className="fixed bottom-8 right-8 w-16 h-16 bg-gold rounded-full shadow-2xl flex items-center justify-center text-navy hover:scale-110 active:scale-95 transition-all z-40 border-4 border-white dark:border-navy"
       >
-        <Plus className="w-8 h-8 stroke-[3]" />
+        <Plus className="w-8 h-8 stroke-3" />
       </button>
 
       <UploadModal 

@@ -72,7 +72,7 @@ export default function InternshipBoard() {
                   className="w-full bg-transparent py-4 pl-12 pr-4 text-white text-sm focus:outline-none font-medium placeholder:text-white/40"
                 />
               </div>
-              <div className="h-full w-[1px] bg-white/20 hidden md:block" />
+              <div className="h-full w-px bg-white/20 hidden md:block" />
               <select 
                 value={branch}
                 onChange={(e) => setBranch(e.target.value)}

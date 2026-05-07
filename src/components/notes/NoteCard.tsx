@@ -46,7 +46,7 @@ export default function NoteCard({ note }: { note: Note }) {
         )}
       </div>
 
-      <h3 className="text-lg font-playfair font-bold text-navy dark:text-white mb-4 line-clamp-2 min-h-[3.5rem] group-hover:text-orange-600 dark:group-hover:text-gold transition-colors">
+      <h3 className="text-lg font-playfair font-bold text-navy dark:text-white mb-4 line-clamp-2 min-h-14 group-hover:text-orange-600 dark:group-hover:text-gold transition-colors">
         {note.title}
       </h3>
 

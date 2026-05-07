@@ -122,7 +122,7 @@ function EventCard({ event, i, onRSVP }: { event: any, i: number, onRSVP: () => 
         {event.poster_image_url ? (
            <img src={event.poster_image_url} alt={event.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-600/40 to-transparent z-10" />
+          <div className="absolute inset-0 bg-linear-to-br from-orange-600/40 to-transparent z-10" />
         )}
         <div className="absolute inset-0 flex items-center justify-center opacity-10 group-hover:scale-110 transition-transform duration-700 pointer-events-none">
           <Trophy className="w-32 h-32 text-white" />

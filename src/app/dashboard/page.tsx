@@ -176,12 +176,12 @@ export default function DashboardPage() {
             
             {/* Today's Schedule (Exotic Timeline) */}
             <div className="bg-navy dark:bg-black p-10 rounded-[48px] text-white border border-white/5 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-600 via-gold to-orange-600" />
+              <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-orange-600 via-gold to-orange-600" />
               <h3 className="text-xl font-playfair font-bold mb-8 flex items-center gap-2">
                 <Clock className="w-5 h-5 text-orange-500" /> Today's Pulse
               </h3>
               
-              <div className="space-y-8 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-[1px] before:bg-white/10">
+              <div className="space-y-8 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-px before:bg-white/10">
                 {data?.timetable?.length > 0 ? data.timetable.map((slot: any, i: number) => (
                   <div key={i} className="relative pl-10">
                     <div className="absolute left-0 top-1.5 w-6 h-6 bg-navy border-2 border-orange-600 rounded-full flex items-center justify-center z-10">
