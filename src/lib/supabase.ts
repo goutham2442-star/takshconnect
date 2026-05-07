@@ -26,6 +26,6 @@ const mockClient = {
   removeChannel: () => ({}),
 } as any
 
-export const supabase = (supabaseUrl && supabaseUrl !== 'your_supabase_url') 
+export const supabase = (supabaseUrl && supabaseAnonKey) 
   ? createClient(supabaseUrl, supabaseAnonKey) 
   : mockClient

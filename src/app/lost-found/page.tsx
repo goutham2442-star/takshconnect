@@ -37,7 +37,8 @@ export default function LostFoundPage() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
 
-    const res = await fetch("http://localhost:8001/api/lost-found", {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
+    const res = await fetch(`${apiUrl}/api/lost-found`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...formData, status, user_id: user.id })

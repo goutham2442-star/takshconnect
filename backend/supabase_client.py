@@ -59,6 +59,12 @@ class MockSupabase:
             data = [
                 {"id": "1", "title": "Blue Laptop Bag", "category": "Bags", "description": "Found in Canteen", "location": "Canteen", "contact_info": "9876543210", "status": "lost", "created_at": "2026-05-01"}
             ]
+        elif self.table_name == "internships":
+            from datetime import datetime, timedelta
+            data = [
+                {"id": "1", "title": "Full Stack Developer", "provider": "IBM SkillsBuild", "description": "MERN stack development.", "branches": ["CSE", "IT"], "duration_weeks": 8, "deadline": (datetime.now() + timedelta(days=10)).strftime("%Y-%m-%d"), "apply_url": "https://skillsbuild.org", "source": "IBM", "is_free": True, "has_certificate": True},
+                {"id": "2", "title": "Data Science Intern", "provider": "AICTE", "description": "Python and ML projects.", "branches": ["AIDS", "CSE"], "duration_weeks": 12, "deadline": (datetime.now() + timedelta(days=2)).strftime("%Y-%m-%d"), "apply_url": "https://internship.aicte-india.org", "source": "AICTE", "is_free": True, "has_certificate": True},
+            ]
         
         return Result(data)
 
@@ -74,7 +80,7 @@ class MockSupabase:
         return SingleResult(data)
 
 try:
-    if not url or "dummy" in url or not key or "dummy" in key:
+    if not url or not key:
         print("Warning: Using MockSupabase client.")
         supabase = MockSupabase()
     else:

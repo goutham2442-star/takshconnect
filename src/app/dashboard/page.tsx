@@ -35,7 +35,8 @@ export default function DashboardPage() {
       }
 
       try {
-        const res = await fetch(`http://localhost:8001/api/student/profile/${user.id}`);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
+        const res = await fetch(`${apiUrl}/api/student/profile/${user.id}`);
         const profileData = await res.json();
         setData(profileData);
         setLoading(false);
