@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: takshconnect-backend
+    env: docker
+    plan: free
+    region: ohio
+    dockerContext: .
+    dockerfilePath: Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: SUPABASE_URL
+        fromEnvVar: SUPABASE_URL
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        fromEnvVar: SUPABASE_SERVICE_ROLE_KEY
+      - key: GEMINI_API_KEY
+        fromEnvVar: GEMINI_API_KEY

@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, Filter, Plus, Trophy, ChevronRight, ChevronLeft, Check, X as CloseIcon } from "lucide-react";
 import NoteCard from "@/components/notes/NoteCard";
 import UploadModal from "@/components/notes/UploadModal";
+import Sidebar from "@/components/layout/Sidebar";
+import BottomNavBar from "@/components/layout/BottomNavBar";
 import Fuse from "fuse.js";
 import { supabase } from "@/lib/supabase";
 
@@ -108,7 +110,10 @@ export default function NotesPage() {
   }, [search, dept, sem]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-navy pb-24">
+    <div className="min-h-screen bg-white dark:bg-navy flex flex-col lg:flex-row pb-24 lg:pb-0">
+      <Sidebar />
+      <BottomNavBar />
+      <div className="flex-1 overflow-y-auto">
       {/* Header Section - Orange Theme */}
       <section className="bg-orange-600 py-16 px-6 relative overflow-hidden">
         <div className="container mx-auto relative z-10">

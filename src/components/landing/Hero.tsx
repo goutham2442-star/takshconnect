@@ -37,18 +37,17 @@ export default function Hero() {
   return (
     <section ref={heroRef} className="relative h-screen w-full overflow-hidden flex items-center justify-center pt-24">
       {/* Video Background */}
-      <div className="absolute inset-0 z-0">
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          playsInline 
-          className="w-full h-full object-cover"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-students-walking-on-a-university-campus-4437-large.mp4" type="video/mp4" />
-        </video>
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-navy/65" />
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <iframe
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[115%] h-[115%] pointer-events-none"
+          src="https://www.youtube.com/embed/8DVGZw-8jms?autoplay=1&mute=1&loop=1&playlist=8DVGZw-8jms&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1"
+          title="Takshashila University Background"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
+        {/* Dark Overlay - Orange Tint for Brand Consistency */}
+        <div className="absolute inset-0 bg-navy/70 backdrop-blur-[2px]" />
       </div>
 
       {/* Content */}

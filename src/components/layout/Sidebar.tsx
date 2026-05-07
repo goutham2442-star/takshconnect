@@ -37,12 +37,12 @@ export default function Sidebar() {
     <aside className="w-72 bg-navy dark:bg-black p-8 flex flex-col justify-between h-screen sticky top-0 border-r border-white/5">
       <div>
         <div className="flex items-center gap-4 mb-14 group cursor-pointer" onClick={() => router.push('/dashboard')}>
-          <div className="w-12 h-12 bg-maroon rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
-            <GraduationCap className="w-8 h-8 text-gold" />
+          <div className="w-12 h-12 bg-orange-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
+            <GraduationCap className="w-8 h-8 text-white" />
           </div>
           <div className="flex flex-col">
             <h1 className="text-xl font-playfair font-bold text-white tracking-tight">TakshConnect</h1>
-            <span className="text-[8px] font-bold text-gold uppercase tracking-[0.3em]">University AI</span>
+            <span className="text-[8px] font-bold text-orange-500 uppercase tracking-[0.3em]">University AI</span>
           </div>
         </div>
 
@@ -56,19 +56,19 @@ export default function Sidebar() {
                 className={cn(
                   "w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group",
                   isActive 
-                    ? "bg-maroon text-white shadow-lg shadow-maroon/20" 
+                    ? "bg-orange-600 text-white shadow-lg shadow-orange-600/20" 
                     : "text-white/50 hover:text-white hover:bg-white/5"
                 )}
               >
                 <item.icon className={cn(
                   "w-5 h-5 transition-transform duration-300 group-hover:scale-110",
-                  isActive ? "text-gold" : "text-white/30 group-hover:text-gold"
+                  isActive ? "text-white" : "text-white/30 group-hover:text-orange-500"
                 )} />
                 <span className="font-bold text-sm tracking-tight">{item.name}</span>
                 {isActive && (
                   <motion.div 
                     layoutId="sidebar-dot"
-                    className="ml-auto w-1.5 h-1.5 bg-gold rounded-full shadow-[0_0_8px_#FFD700]"
+                    className="ml-auto w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_#ffffff]"
                   />
                 )}
               </button>
