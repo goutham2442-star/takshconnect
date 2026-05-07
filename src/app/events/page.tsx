@@ -1,147 +1,133 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, MapPin, Users, Heart, Share2, Sparkles, Filter } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { motion } from "framer-motion";
+import { Calendar, MapPin, Users, Plus, Zap, Trophy, Clock } from "lucide-react";
+import Sidebar from "@/components/layout/Sidebar";
 
-export default function CampusEvents() {
+export default function EventsPage() {
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 1. Fetch initial events
-    const fetchEvents = async () => {
-      const { data, error } = await supabase
-        .from("events")
-        .select("*")
-        .order("date", { ascending: true });
-      
-      if (!error) setEvents(data || []);
-      setLoading(false);
-    };
-
-    fetchEvents();
-
-    // 2. Subscribe to Realtime updates
-    const channel = supabase
-      .channel("events_realtime")
-      .on("postgres_changes", { event: "UPDATE", schema: "public", table: "events" }, (payload) => {
-        setEvents(prev => prev.map(ev => ev.id === payload.new.id ? payload.new : ev));
-      })
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    fetch("http://localhost:8001/api/events")
+      .then(res => res.json())
+      .then(data => {
+        setEvents(data);
+        setLoading(false);
+      });
   }, []);
 
-  const handleRSVP = async (id: string, currentCount: number) => {
-    // Optimistic update
-    setEvents(prev => prev.map(ev => ev.id === id ? { ...ev, rsvp_count: currentCount + 1 } : ev));
-
-    const { error } = await supabase
-      .from("events")
-      .update({ rsvp_count: currentCount + 1 })
-      .eq("id", id);
-    
-    if (error) {
-      // Rollback on error
-      setEvents(prev => prev.map(ev => ev.id === id ? { ...ev, rsvp_count: currentCount } : ev));
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-navy pb-24">
-      {/* Header */}
-      <section className="bg-maroon py-20 px-6 relative overflow-hidden">
-        <div className="container mx-auto relative z-10">
-          <div className="flex items-center gap-3 text-gold font-bold uppercase tracking-widest text-xs mb-4">
-            <Sparkles className="w-4 h-4" /> Live Updates Enabled
+    <div className="min-h-screen bg-white dark:bg-navy flex">
+      <Sidebar />
+      
+      <main className="flex-1 p-12 overflow-y-auto">
+        <header className="flex justify-between items-end mb-16">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 text-maroon font-bold uppercase tracking-widest text-xs">
+              <Zap className="w-4 h-4" /> Campus Community
+            </div>
+            <h1 className="text-5xl font-playfair font-bold text-navy dark:text-white tracking-tight">
+              Campus <span className="text-maroon">Events</span>
+            </h1>
+            <p className="text-gray-500 max-w-xl text-lg font-medium">
+              Stay connected with everything happening at Takshashila. From elite hackathons to cultural festivals.
+            </p>
           </div>
-          <h1 className="text-4xl md:text-7xl font-playfair font-bold text-white mb-6">Campus <span className="text-gold">Events</span></h1>
-          <p className="text-white/60 text-lg max-w-2xl">
-            From technical hackathons to cultural fests. Stay updated with everything happening at Takshashila.
-          </p>
-        </div>
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gold/10 rounded-full blur-[120px] -mr-80 -mt-80" />
-      </section>
+          <button className="px-10 py-5 bg-maroon text-white rounded-2xl font-bold shadow-xl shadow-maroon/20 hover:scale-105 transition-all flex items-center gap-3">
+            <Plus className="w-5 h-5" /> Submit Event
+          </button>
+        </header>
 
-      {/* Grid */}
-      <section className="container mx-auto px-6 -mt-12 relative z-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {loading ? (
-            [1,2,3].map(i => <div key={i} className="h-96 bg-white dark:bg-navy-card rounded-3xl animate-pulse" />)
+            [1,2,3].map(i => <div key={i} className="h-96 bg-gray-50 dark:bg-white/5 animate-pulse rounded-[40px]" />)
           ) : (
             events.map((event, i) => (
-              <motion.div 
-                key={event.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white dark:bg-navy-card rounded-[2.5rem] overflow-hidden border border-gray-100 dark:border-white/5 shadow-xl group"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img 
-                    src={event.poster_image_url || `https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=60`} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                    alt={event.title}
-                  />
-                  <div className="absolute top-4 left-4 bg-maroon text-white p-3 rounded-2xl text-center shadow-2xl min-w-[60px]">
-                    <p className="text-xs font-bold uppercase tracking-widest">
-                      {new Date(event.date).toLocaleString('default', { month: 'short' })}
-                    </p>
-                    <p className="text-2xl font-playfair font-bold">
-                      {new Date(event.date).getDate()}
-                    </p>
-                  </div>
-                  <div className="absolute bottom-4 right-4 flex gap-2">
-                    <button className="p-2.5 bg-white/20 backdrop-blur-md rounded-xl text-white hover:bg-white/40 transition-colors">
-                      <Share2 className="w-4 h-4" />
-                    </button>
-                    <button className="p-2.5 bg-white/20 backdrop-blur-md rounded-xl text-white hover:bg-white/40 transition-colors">
-                      <Heart className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="p-8">
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="bg-gold/10 text-gold text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-gold/20">
-                      {event.category}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl font-playfair font-bold text-navy dark:text-white mb-4 group-hover:text-maroon dark:group-hover:text-gold transition-colors">
-                    {event.title}
-                  </h3>
-                  
-                  <div className="space-y-3 mb-8">
-                    <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-white/40">
-                      <Calendar className="w-4 h-4 text-maroon dark:text-gold" />
-                      {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                    </div>
-                    <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-white/40">
-                      <MapPin className="w-4 h-4 text-maroon dark:text-gold" />
-                      {event.venue}
-                    </div>
-                    <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-white/40">
-                      <Users className="w-4 h-4 text-maroon dark:text-gold" />
-                      <span className="font-bold text-navy dark:text-white">{event.rsvp_count} Students</span> attending
-                    </div>
-                  </div>
-
-                  <button 
-                    onClick={() => handleRSVP(event.id, event.rsvp_count)}
-                    className="w-full bg-navy dark:bg-white text-white dark:text-navy font-bold py-4 rounded-2xl hover:bg-maroon dark:hover:bg-gold transition-all flex items-center justify-center gap-2 group/btn"
-                  >
-                    RSVP Now <Sparkles className="w-4 h-4 group-hover/btn:animate-spin" />
-                  </button>
-                </div>
-              </motion.div>
+              <EventCard key={event.id} event={event} i={i} />
             ))
           )}
         </div>
-      </section>
+      </main>
     </div>
+  );
+}
+
+function EventCard({ event, i }: { event: any, i: number }) {
+  const [timeLeft, setTimeLeft] = useState("");
+
+  useEffect(() => {
+    const updateTimer = () => {
+      const eventDate = new Date(event.date).getTime();
+      const now = new Date().getTime();
+      const diff = eventDate - now;
+
+      if (diff <= 0) {
+        setTimeLeft("Started");
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeLeft(`${days}d ${hours}h ${mins}m ${secs}s`);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [event.date]);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: i * 0.1 }}
+      className="group bg-gray-50 dark:bg-navy-card rounded-[40px] border border-gray-100 dark:border-white/5 overflow-hidden hover:border-maroon/20 transition-all duration-500"
+    >
+      <div className="h-56 bg-navy relative overflow-hidden">
+        <div className="absolute inset-0 bg-linear-to-br from-maroon/40 to-transparent z-10" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-10 group-hover:scale-110 transition-transform duration-700">
+          <Trophy className="w-32 h-32 text-white" />
+        </div>
+        <div className="absolute top-6 left-6 z-20 flex justify-between w-full pr-12">
+          <div className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 text-white text-xs font-bold uppercase tracking-widest">
+            {event.category}
+          </div>
+          <div className="bg-maroon px-4 py-2 rounded-xl text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
+            <Clock className="w-3 h-3" /> {timeLeft}
+          </div>
+        </div>
+      </div>
+
+      <div className="p-10 space-y-8">
+        <div className="space-y-4">
+          <h3 className="text-2xl font-playfair font-bold text-navy dark:text-white group-hover:text-maroon transition-colors">{event.title}</h3>
+          <p className="text-gray-500 dark:text-white/40 text-sm leading-relaxed">{event.description}</p>
+        </div>
+
+        <div className="space-y-4 pt-6 border-t border-gray-100 dark:border-white/5">
+          <div className="flex items-center gap-3 text-sm font-bold text-navy dark:text-white">
+            <Calendar className="w-5 h-5 text-gold" />
+            {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          </div>
+          <div className="flex items-center gap-3 text-sm font-bold text-gray-500 dark:text-white/40">
+            <MapPin className="w-5 h-5 text-gold" />
+            {event.venue}
+          </div>
+          <div className="flex items-center gap-3 text-sm font-bold text-gray-400">
+            <Users className="w-5 h-5 text-gold" />
+            {event.rsvp_count} Students RSVP'd
+          </div>
+        </div>
+
+        <button className="w-full py-5 bg-navy dark:bg-maroon text-white rounded-2xl font-bold hover:shadow-2xl transition-all">
+          RSVP Now
+        </button>
+      </div>
+    </motion.div>
   );
 }

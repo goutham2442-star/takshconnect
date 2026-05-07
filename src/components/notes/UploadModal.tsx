@@ -37,6 +37,9 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
 
     setUploading(true);
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("Not authenticated");
+
       // 1. Upload to Supabase Storage
       const fileName = `${Date.now()}-${file.name}`;
       const { data: storageData, error: storageError } = await supabase.storage
@@ -58,6 +61,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
           semester: sem,
           subject,
           file_url: publicUrl,
+          uploader_id: user.id,
         })
         .select()
         .single();
@@ -100,7 +104,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
             exit={{ y: 100, opacity: 0 }}
             className="relative w-full max-w-2xl bg-white dark:bg-navy-card rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden border border-white/5"
           >
-            <div className="p-6 border-b border-gray-100 dark:border-white/5 flex justify-between items-center bg-maroon text-white">
+            <div className="p-6 border-b border-gray-100 dark:border-white/5 flex justify-between items-center bg-orange-600 text-white">
               <h3 className="text-xl font-playfair font-bold">Upload New Note</h3>
               <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">
                 <X className="w-6 h-6" />
@@ -116,7 +120,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="e.g. Unit 1: OS Fundamentals"
-                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-3 px-4 text-navy dark:text-white focus:outline-none focus:border-maroon transition-all"
+                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-3 px-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 transition-all"
                   />
                 </div>
                 <div>
@@ -126,7 +130,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
                     value={subject}
                     onChange={(e) => setSubject(e.target.value)}
                     placeholder="e.g. Operating Systems"
-                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-3 px-4 text-navy dark:text-white focus:outline-none focus:border-maroon transition-all"
+                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-3 px-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 transition-all"
                   />
                 </div>
                 <div>
@@ -134,11 +138,13 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
                   <select 
                     value={dept}
                     onChange={(e) => setDept(e.target.value)}
-                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-3 px-4 text-navy dark:text-white focus:outline-none focus:border-maroon transition-all"
+                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-3 px-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 transition-all"
                   >
                     <option>B.Tech CSE</option>
                     <option>B.Tech AI&DS</option>
                     <option>BBA Fintech</option>
+                    <option>MCA</option>
+                    <option>ECE</option>
                   </select>
                 </div>
                 <div>
@@ -146,7 +152,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
                   <select 
                     value={sem}
                     onChange={(e) => setSem(parseInt(e.target.value))}
-                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-3 px-4 text-navy dark:text-white focus:outline-none focus:border-maroon transition-all"
+                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-3 px-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 transition-all"
                   >
                     {[1,2,3,4,5,6,7,8].map(s => <option key={s} value={s}>Semester {s}</option>)}
                   </select>
@@ -156,13 +162,13 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
               <div 
                 {...getRootProps()} 
                 className={`border-2 border-dashed rounded-2xl p-12 text-center transition-all cursor-pointer ${
-                  isDragActive ? "border-gold bg-gold/5" : "border-gray-200 dark:border-white/10 hover:border-maroon dark:hover:border-gold"
+                  isDragActive ? "border-gold bg-gold/5" : "border-gray-200 dark:border-white/10 hover:border-orange-500 dark:hover:border-gold"
                 }`}
               >
                 <input {...getInputProps()} />
                 {file ? (
                   <div className="flex flex-col items-center">
-                    <FileText className="w-12 h-12 text-maroon dark:text-gold mb-2" />
+                    <FileText className="w-12 h-12 text-orange-600 dark:text-gold mb-2" />
                     <p className="text-navy dark:text-white font-bold">{file.name}</p>
                     <p className="text-gray-400 text-xs">{(file.size / (1024 * 1024)).toFixed(2)} MB</p>
                   </div>
@@ -177,7 +183,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
 
               {uploading && (
                 <div className="space-y-2">
-                  <div className="flex justify-between text-xs font-bold text-maroon dark:text-gold">
+                  <div className="flex justify-between text-xs font-bold text-orange-600 dark:text-gold">
                     <span>Uploading...</span>
                     <span>{Math.round(progress)}%</span>
                   </div>
@@ -185,7 +191,7 @@ export default function UploadModal({ isOpen, onClose, onSuccess }: UploadModalP
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: `${progress}%` }}
-                      className="h-full bg-maroon dark:bg-gold"
+                      className="h-full bg-orange-600 dark:bg-gold"
                     />
                   </div>
                 </div>

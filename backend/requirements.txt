@@ -3,3 +3,8 @@ uvicorn
 google-generativeai
 supabase
 python-dotenv
+beautifulsoup4
+requests
+apscheduler
+PyMuPDF
+pydantic

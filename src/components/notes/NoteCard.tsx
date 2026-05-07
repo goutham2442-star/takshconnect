@@ -17,10 +17,10 @@ interface Note {
 }
 
 const deptColors: Record<string, string> = {
-  "B.Tech CSE": "bg-maroon",
+  "B.Tech CSE": "bg-orange-600 text-white",
   "B.Tech AI&DS": "bg-gold text-navy",
-  "BBA Fintech": "bg-blue-600",
-  "MCA": "bg-purple-600",
+  "BBA Fintech": "bg-blue-600 text-white",
+  "MCA": "bg-purple-600 text-white",
 };
 
 export default function NoteCard({ note }: { note: Note }) {
@@ -46,7 +46,7 @@ export default function NoteCard({ note }: { note: Note }) {
         )}
       </div>
 
-      <h3 className="text-lg font-playfair font-bold text-navy dark:text-white mb-4 line-clamp-2 min-h-[3.5rem] group-hover:text-maroon dark:group-hover:text-gold transition-colors">
+      <h3 className="text-lg font-playfair font-bold text-navy dark:text-white mb-4 line-clamp-2 min-h-[3.5rem] group-hover:text-orange-600 dark:group-hover:text-gold transition-colors">
         {note.title}
       </h3>
 
@@ -66,7 +66,7 @@ export default function NoteCard({ note }: { note: Note }) {
 
       <div className="flex items-center justify-between pt-4 border-t border-gray-50 dark:border-white/5">
         <div className="flex items-center gap-4">
-          <button className="flex items-center gap-1.5 text-gray-500 hover:text-maroon dark:text-white/40 dark:hover:text-gold transition-colors">
+          <button className="flex items-center gap-1.5 text-gray-500 hover:text-orange-600 dark:text-white/40 dark:hover:text-gold transition-colors">
             <ThumbsUp className="w-4 h-4" />
             <span className="text-xs font-bold">{note.upvotes}</span>
           </button>
@@ -76,7 +76,7 @@ export default function NoteCard({ note }: { note: Note }) {
           </div>
         </div>
         
-        <button className="p-2.5 bg-gray-50 dark:bg-white/5 rounded-xl text-navy dark:text-white hover:bg-maroon hover:text-white dark:hover:bg-gold dark:hover:text-navy transition-all">
+        <button className="p-2.5 bg-gray-50 dark:bg-white/5 rounded-xl text-navy dark:text-white hover:bg-orange-600 hover:text-white dark:hover:bg-gold dark:hover:text-navy transition-all">
           <Download className="w-5 h-5" />
         </button>
       </div>

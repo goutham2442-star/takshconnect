@@ -1,195 +1,140 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Users, Plus, MessageCircle, Send, ArrowLeft, ChevronRight, BookOpen, GraduationCap } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Users, MessageSquare, Plus, Search, Send, X, ChevronRight, UserPlus, BookOpen } from "lucide-react";
+import Sidebar from "@/components/layout/Sidebar";
 
-export default function StudyGroups() {
-  const [groups, setGroups] = useState<any[]>([]);
-  const [activeGroup, setActiveGroup] = useState<any>(null);
-  const [messages, setMessages] = useState<any[]>([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+export default function GroupsPage() {
+  const [selectedGroup, setSelectedGroup] = useState<any>(null);
+  const [input, setInput] = useState("");
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    fetchUser();
-    fetchGroups();
-  }, []);
-
-  useEffect(() => {
-    if (activeGroup) {
-      fetchMessages(activeGroup.id);
-      
-      const channel = supabase
-        .channel(`group_${activeGroup.id}`)
-        .on("postgres_changes", { 
-          event: "INSERT", 
-          schema: "public", 
-          table: "group_messages",
-          filter: `group_id=eq.${activeGroup.id}`
-        }, (payload) => {
-          setMessages(prev => [...prev, payload.new]);
-        })
-        .subscribe();
-
-      return () => {
-        supabase.removeChannel(channel);
-      };
-    }
-  }, [activeGroup]);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages]);
-
-  const fetchGroups = async () => {
-    const { data, error } = await supabase.from("study_groups").select("*");
-    if (!error) setGroups(data || []);
-    setLoading(false);
-  };
-
-  const fetchMessages = async (groupId: string) => {
-    const { data, error } = await supabase
-      .from("group_messages")
-      .select("*")
-      .eq("group_id", groupId)
-      .order("created_at", { ascending: true });
-    
-    if (!error) setMessages(data || []);
-  };
-
-  const sendMessage = async () => {
-    if (!newMessage.trim() || !user) return;
-
-    const { error } = await supabase
-      .from("group_messages")
-      .insert({
-        group_id: activeGroup.id,
-        user_id: user.id,
-        content: newMessage
-      });
-    
-    if (!error) setNewMessage("");
-  };
+  const groups = [
+    { id: 1, name: "Data Structures Squad", subject: "CSE201", members: 8, max: 8, sem: 4 },
+    { id: 2, name: "Operating Systems 101", subject: "CSE302", members: 5, max: 8, sem: 5 },
+    { id: 3, name: "Math-II Prep", subject: "MAT102", members: 3, max: 8, sem: 2 },
+  ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-navy flex">
-      {/* Sidebar - Group List */}
-      <aside className={`w-full md:w-96 bg-white dark:bg-navy-card border-r border-gray-100 dark:border-white/5 flex flex-col ${activeGroup ? 'hidden md:flex' : 'flex'}`}>
-        <div className="p-8 border-b border-gray-100 dark:border-white/5">
-          <h1 className="text-3xl font-playfair font-bold text-navy dark:text-white mb-6">Study <span className="text-gold">Groups</span></h1>
-          <button className="w-full bg-maroon text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-maroon/90 transition-all shadow-xl shadow-maroon/20">
-            <Plus className="w-5 h-5" /> Create New Group
+    <div className="min-h-screen bg-white dark:bg-navy flex">
+      <Sidebar />
+      
+      <main className="flex-1 flex overflow-hidden">
+        {/* List */}
+        <div className="w-[450px] p-12 border-r border-gray-100 dark:border-white/5 flex flex-col">
+          <header className="mb-12">
+            <h1 className="text-4xl font-playfair font-bold text-navy dark:text-white mb-8">
+              Study <span className="text-maroon">Groups</span>
+            </h1>
+            <div className="relative group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <input 
+                placeholder="Search subjects..."
+                className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 p-4 pl-12 rounded-2xl focus:outline-none focus:border-maroon transition-all font-bold text-sm"
+              />
+            </div>
+          </header>
+
+          <div className="flex-1 overflow-y-auto custom-scrollbar space-y-6 pr-2">
+            {groups.map(group => (
+              <motion.div 
+                key={group.id}
+                whileHover={{ scale: 1.02 }}
+                onClick={() => setSelectedGroup(group)}
+                className={`p-8 rounded-[40px] cursor-pointer border transition-all ${
+                  selectedGroup?.id === group.id 
+                    ? "bg-maroon text-white border-maroon shadow-2xl shadow-maroon/20" 
+                    : "bg-gray-50 dark:bg-white/5 border-gray-100 dark:border-white/10"
+                }`}
+              >
+                <div className="flex justify-between items-start mb-6">
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm ${
+                    selectedGroup?.id === group.id ? "bg-white/10" : "bg-white dark:bg-navy"
+                  }`}>
+                    <BookOpen className={`w-6 h-6 ${selectedGroup?.id === group.id ? "text-gold" : "text-maroon"}`} />
+                  </div>
+                  <div className={`px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
+                    selectedGroup?.id === group.id ? "bg-white/10" : "bg-gray-100"
+                  }`}>
+                    SEM {group.sem}
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold mb-2">{group.name}</h3>
+                <p className={`text-xs font-bold uppercase tracking-widest ${
+                  selectedGroup?.id === group.id ? "text-gold" : "text-gray-400"
+                }`}>{group.subject}</p>
+                <div className="mt-8 flex items-center justify-between pt-6 border-t border-white/10">
+                   <div className="flex -space-x-2">
+                     {[1,2,3].map(i => <div key={i} className="w-6 h-6 rounded-full border-2 border-navy bg-gray-200" />)}
+                   </div>
+                   <span className="text-[10px] font-bold opacity-60">{group.members}/{group.max} Members</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <button className="mt-12 w-full py-5 bg-navy dark:bg-black text-white rounded-2xl font-bold flex items-center justify-center gap-3">
+            <Plus className="w-5 h-5 text-gold" /> Create New Group
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          <div className="px-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Available Groups</div>
-          {loading ? (
-            [1,2,3].map(i => <div key={i} className="h-20 bg-gray-50 dark:bg-white/5 rounded-2xl animate-pulse" />)
+        {/* Chat Area */}
+        <div className="flex-1 flex flex-col bg-gray-50 dark:bg-navy-card">
+          {selectedGroup ? (
+            <>
+              <header className="p-8 bg-white dark:bg-navy border-b border-gray-100 dark:border-white/5 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-maroon rounded-2xl flex items-center justify-center shadow-lg">
+                    <Users className="w-6 h-6 text-gold" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-playfair font-bold text-navy dark:text-white">{selectedGroup.name}</h2>
+                    <p className="text-xs text-maroon font-bold uppercase tracking-widest">Active Discussion</p>
+                  </div>
+                </div>
+                <button className="px-6 py-3 bg-navy text-white rounded-xl font-bold text-xs flex items-center gap-2">
+                  <UserPlus className="w-4 h-4" /> Invite
+                </button>
+              </header>
+
+              <div className="flex-1 overflow-y-auto p-12 space-y-8 custom-scrollbar">
+                <div className="flex flex-col gap-2">
+                   <span className="text-[10px] font-black text-maroon uppercase tracking-widest ml-4">Professor Shanti</span>
+                   <div className="max-w-[70%] p-6 bg-white dark:bg-navy border border-gray-100 dark:border-white/5 rounded-[32px] rounded-tl-none shadow-sm text-sm font-medium leading-relaxed">
+                     Good luck with the prep today, students. Remember to focus on Chapter 4.
+                   </div>
+                </div>
+                {/* More messages would go here */}
+              </div>
+
+              <div className="p-8 bg-white dark:bg-navy border-t border-gray-100 dark:border-white/5">
+                <div className="max-w-4xl mx-auto flex items-center gap-4">
+                  <input 
+                    placeholder="Type a message..."
+                    className="flex-1 bg-gray-50 dark:bg-navy-card border border-gray-100 dark:border-white/10 p-5 rounded-2xl outline-none focus:border-maroon transition-all font-medium text-sm"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                  />
+                  <button className="w-14 h-14 bg-maroon text-white rounded-2xl flex items-center justify-center shadow-lg">
+                    <Send className="w-6 h-6" />
+                  </button>
+                </div>
+              </div>
+            </>
           ) : (
-            groups.map(group => (
-              <button 
-                key={group.id}
-                onClick={() => setActiveGroup(group)}
-                className={`w-full text-left p-6 rounded-3xl transition-all border ${
-                  activeGroup?.id === group.id 
-                    ? "bg-maroon text-white border-maroon shadow-xl shadow-maroon/20" 
-                    : "bg-white dark:bg-white/5 text-navy dark:text-white/60 border-gray-100 dark:border-white/5 hover:border-gold/50"
-                }`}
-              >
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-bold">{group.name}</h3>
-                  <Users className={`w-4 h-4 ${activeGroup?.id === group.id ? 'text-gold' : 'text-gray-300'}`} />
-                </div>
-                <div className="flex items-center gap-2 text-[10px] opacity-60 font-bold uppercase tracking-wider">
-                  <BookOpen className="w-3 h-3" /> {group.subject}
-                </div>
-              </button>
-            ))
+            <div className="h-full flex flex-col items-center justify-center text-center max-w-sm mx-auto space-y-8">
+              <div className="w-24 h-24 bg-gray-100 dark:bg-white/5 rounded-[40px] flex items-center justify-center">
+                <MessageSquare className="w-12 h-12 text-gray-300" />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-3xl font-playfair font-bold text-navy dark:text-white">Select a Squad</h3>
+                <p className="text-gray-500 dark:text-white/40 leading-relaxed font-medium">
+                  Collaborate with fellow scholars in real-time. Join a group or create your own to start learning together.
+                </p>
+              </div>
+            </div>
           )}
         </div>
-      </aside>
-
-      {/* Main Chat Area */}
-      <main className={`flex-1 flex flex-col bg-white dark:bg-navy ${!activeGroup ? 'hidden md:flex' : 'flex'}`}>
-        {activeGroup ? (
-          <>
-            {/* Chat Header */}
-            <header className="p-6 border-b border-gray-100 dark:border-white/5 flex items-center gap-4 bg-white/50 dark:bg-navy/50 backdrop-blur-xl">
-              <button onClick={() => setActiveGroup(null)} className="md:hidden p-2 text-gray-400">
-                <ArrowLeft className="w-6 h-6" />
-              </button>
-              <div className="w-12 h-12 bg-gold rounded-2xl flex items-center justify-center shadow-lg shadow-gold/20">
-                <GraduationCap className="w-7 h-7 text-navy" />
-              </div>
-              <div>
-                <h2 className="font-playfair font-bold text-navy dark:text-white text-lg">{activeGroup.name}</h2>
-                <p className="text-[10px] text-gray-500 dark:text-white/40 font-bold uppercase tracking-widest">{activeGroup.subject} • Sem {activeGroup.semester}</p>
-              </div>
-            </header>
-
-            {/* Messages */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 space-y-6">
-              {messages.map((msg, i) => {
-                const isMe = msg.user_id === user?.id;
-                return (
-                  <div key={i} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[70%] ${isMe ? 'items-end' : 'items-start'}`}>
-                      <div className={`p-4 rounded-2xl text-sm ${
-                        isMe 
-                          ? 'bg-maroon text-white rounded-tr-none shadow-lg shadow-maroon/10' 
-                          : 'bg-gray-100 dark:bg-navy-card text-navy dark:text-white/90 rounded-tl-none border-l-4 border-gold'
-                      }`}>
-                        {msg.content}
-                      </div>
-                      <p className="text-[8px] font-bold text-gray-400 mt-1 uppercase tracking-tighter">
-                        {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Input */}
-            <div className="p-8 bg-white/50 dark:bg-navy/50 backdrop-blur-xl border-t border-gray-100 dark:border-white/5">
-              <div className="flex gap-4 max-w-4xl mx-auto">
-                <input 
-                  type="text" 
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                  placeholder="Type a message..."
-                  className="flex-1 bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 px-6 text-navy dark:text-white focus:outline-none focus:border-gold transition-all"
-                />
-                <button 
-                  onClick={sendMessage}
-                  className="bg-gold text-navy p-4 rounded-2xl hover:bg-gold/90 transition-all shadow-lg shadow-gold/20"
-                >
-                  <Send className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className="flex-1 flex flex-col items-center justify-center text-center p-12">
-            <div className="w-24 h-24 bg-gray-50 dark:bg-white/5 rounded-[2.5rem] flex items-center justify-center mb-8">
-              <MessageCircle className="w-12 h-12 text-gray-200 dark:text-white/10" />
-            </div>
-            <h2 className="text-3xl font-playfair font-bold text-navy dark:text-white mb-4">Select a Study Group</h2>
-            <p className="text-gray-500 dark:text-white/40 max-w-sm font-medium">Collaborate with your peers in real-time. Shared learning is effective learning.</p>
-          </div>
-        )}
       </main>
     </div>
   );

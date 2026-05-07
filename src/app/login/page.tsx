@@ -23,44 +23,51 @@ export default function LoginPage() {
     }
 
     setLoading(true);
-    const { data, error: authError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (authError) {
-      setError(authError.message);
+      if (authError) {
+        setError(authError.message);
+        setLoading(false);
+        return;
+      }
+
+      if (data.user) {
+        // Check if profile exists, if not redirect to onboarding
+        const { data: profile, error: profileError } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", data.user.id)
+          .single();
+
+        if (profileError || !profile) {
+          router.push("/onboarding");
+        } else {
+          router.push("/dashboard");
+        }
+      }
+    } catch (err: any) {
+      setError("An unexpected error occurred. Please try again.");
+    } finally {
       setLoading(false);
-      return;
     }
-
-    // Check if profile exists, if not redirect to onboarding
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", data.user?.id)
-      .single();
-
-    if (!profile) {
-      router.push("/onboarding");
-    } else {
-      router.push("/dashboard");
-    }
-    setLoading(false);
   };
 
   return (
     <div className="min-h-screen flex bg-navy overflow-hidden">
-      {/* Sidebar (Left) */}
+      {/* Sidebar (Left) - Orange Theme */}
       <motion.div 
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        className="hidden lg:flex w-1/3 bg-maroon flex-col justify-between p-12 relative"
+        className="hidden lg:flex w-1/3 bg-orange-600 flex-col justify-between p-12 relative"
       >
         <div className="z-10">
           <div className="flex items-center gap-3 mb-12">
             <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center">
-              <GraduationCap className="w-8 h-8 text-maroon" />
+              <GraduationCap className="w-8 h-8 text-orange-600" />
             </div>
             <div>
               <h1 className="text-2xl font-playfair font-bold text-white leading-none">TakshConnect</h1>
@@ -70,7 +77,7 @@ export default function LoginPage() {
           
           <div className="space-y-6">
             <h2 className="text-5xl font-playfair font-bold text-white">Student Portal</h2>
-            <p className="text-white/70 text-lg leading-relaxed">
+            <p className="text-white/80 text-lg leading-relaxed">
               Access your notes, internships, and academic tools in one premium dashboard.
             </p>
           </div>
@@ -81,7 +88,7 @@ export default function LoginPage() {
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -mr-32 -mt-32" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-navy/20 rounded-full blur-3xl -ml-32 -mb-32" />
       </motion.div>
 
@@ -107,7 +114,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="yourname@takshashilauniv.ac.in"
-                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-maroon dark:focus:border-gold transition-all"
+                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 transition-all"
                   required
                 />
               </div>
@@ -122,7 +129,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-maroon dark:focus:border-gold transition-all"
+                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 transition-all"
                   required
                 />
               </div>
@@ -141,7 +148,7 @@ export default function LoginPage() {
             <button 
               type="submit"
               disabled={loading}
-              className="w-full bg-maroon hover:bg-maroon/90 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all group"
+              className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all group"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -162,7 +169,7 @@ export default function LoginPage() {
             </div>
             <p className="text-gray-500 dark:text-white/40 text-sm">
               Don't have an account?{" "}
-              <a href="/signup" className="text-maroon dark:text-gold font-bold hover:underline">Sign Up</a>
+              <a href="/signup" className="text-orange-600 dark:text-gold font-bold hover:underline">Sign Up</a>
             </p>
           </div>
         </motion.div>

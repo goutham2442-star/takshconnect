@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Filter, Plus, Trophy, ChevronRight, ChevronLeft } from "lucide-react";
+import { Search, Filter, Plus, Trophy, ChevronRight, ChevronLeft, Check, X as CloseIcon } from "lucide-react";
 import NoteCard from "@/components/notes/NoteCard";
 import UploadModal from "@/components/notes/UploadModal";
 import Fuse from "fuse.js";
-import { Check, X as CloseIcon } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const mockNotes = [
   {
@@ -66,6 +66,35 @@ export default function NotesPage() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [summary, setSummary] = useState<string | null>(null);
 
+  // Auto-select department from profile
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("branch")
+          .eq("id", user.id)
+          .single();
+        
+        if (profile) {
+          // Map short branch to display name if needed
+          const branchMap: Record<string, string> = {
+            "CSE": "B.Tech CSE",
+            "AIDS": "B.Tech AI&DS",
+            "BBA": "BBA Fintech",
+            "MCA": "MCA",
+            "BCOM": "B.Com",
+            "Agriculture": "B.Sc Agriculture",
+            "ECE": "ECE"
+          };
+          setDept(branchMap[profile.branch] || "All Departments");
+        }
+      }
+    };
+    fetchProfile();
+  }, []);
+
   const fuse = new Fuse(mockNotes, {
     keys: ["title", "subject"],
     threshold: 0.3,
@@ -80,11 +109,11 @@ export default function NotesPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-navy pb-24">
-      {/* Header Section */}
-      <section className="bg-maroon py-16 px-6 relative overflow-hidden">
+      {/* Header Section - Orange Theme */}
+      <section className="bg-orange-600 py-16 px-6 relative overflow-hidden">
         <div className="container mx-auto relative z-10">
           <h1 className="text-4xl md:text-6xl font-playfair font-bold text-white mb-6">Smart Notes Hub</h1>
-          <p className="text-white/70 text-lg max-w-2xl mb-12">
+          <p className="text-white/80 text-lg max-w-2xl mb-12">
             Access, download, and share high-quality academic notes summarized by AI for your convenience.
           </p>
 
@@ -110,6 +139,8 @@ export default function NotesPage() {
               <option>B.Tech CSE</option>
               <option>B.Tech AI&DS</option>
               <option>BBA Fintech</option>
+              <option>MCA</option>
+              <option>ECE</option>
             </select>
             <div className="h-full w-[1px] bg-gray-100 hidden md:block" />
             <select 
@@ -124,7 +155,7 @@ export default function NotesPage() {
         </div>
         
         {/* Decorative */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl -mr-32 -mt-32" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -mr-32 -mt-32" />
       </section>
 
       {/* Top Rated Horizontal Section */}

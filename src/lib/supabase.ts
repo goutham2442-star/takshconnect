@@ -20,6 +20,10 @@ const mockClient = {
       getPublicUrl: () => ({ data: { publicUrl: 'https://example.com/note.pdf' } }),
     }),
   },
+  channel: () => ({
+    on: () => ({ subscribe: () => ({}) }),
+  }),
+  removeChannel: () => ({}),
 } as any
 
 export const supabase = (supabaseUrl && supabaseUrl !== 'your_supabase_url') 
