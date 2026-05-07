@@ -1,19 +1,33 @@
 @echo off
-title TakshConnect Launcher
-echo [1/3] Starting TakshConnect Backend...
-start cmd /k "cd backend && venv\Scripts\activate && python main.py"
-timeout /t 5
+title TakshConnect Server Manager
+echo ==========================================
+echo Starting TakshConnect Full-Stack Servers...
+echo ==========================================
+echo.
 
-echo [2/3] Starting TakshConnect Frontend...
-start cmd /k "npm run dev"
-timeout /t 10
+echo [1/3] Launching FastAPI Backend (Port 8001)...
+start /B cmd /c "cd backend && call venv\Scripts\activate.bat && python main.py"
+timeout /t 5 >nul
 
-echo [3/3] Opening TakshConnect in Browser...
+echo [2/3] Launching Next.js Frontend (Port 3000)...
+start /B cmd /c "npm run dev"
+timeout /t 10 >nul
+
+echo [3/3] Opening TakshConnect in your browser...
 start http://localhost:3000/login
 
 echo.
 echo ==========================================
-echo TakshConnect is now RUNNING!
-echo Close this window to stop.
+echo All servers are RUNNING.
+echo DO NOT close this window.
+echo Press any key to STOP all servers and exit...
 echo ==========================================
-pause
+pause >nul
+
+echo.
+echo Stopping servers...
+taskkill /F /IM node.exe >nul 2>&1
+taskkill /F /IM python.exe >nul 2>&1
+echo Done! Goodbye.
+timeout /t 2 >nul
+exit
