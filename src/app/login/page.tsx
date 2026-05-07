@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { GraduationCap, Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
+import { GraduationCap, Mail, Lock, ArrowRight, Loader2, Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -17,8 +18,8 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     
-    if (!email.endsWith("@takshashilauniv.ac.in")) {
-      setError("Please use your official college email (@takshashilauniv.ac.in)");
+    if (!email) {
+      setError("Please enter your email");
       return;
     }
 
@@ -139,7 +140,7 @@ export default function LoginPage() {
                     type="email" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="yourname@takshashilauniv.ac.in"
+                    placeholder="yourname@example.com"
                     className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-5 pl-14 pr-6 text-navy dark:text-white focus:outline-none focus:border-orange-500 focus:bg-white dark:focus:bg-navy transition-all font-bold"
                     required
                   />
@@ -151,13 +152,20 @@ export default function LoginPage() {
                 <div className="relative group">
                   <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-orange-600 transition-colors" />
                   <input 
-                    type="password" 
+                    type={showPassword ? "text" : "password"} 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-5 pl-14 pr-6 text-navy dark:text-white focus:outline-none focus:border-orange-500 focus:bg-white dark:focus:bg-navy transition-all font-bold"
+                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-5 pl-14 pr-12 text-navy dark:text-white focus:outline-none focus:border-orange-500 focus:bg-white dark:focus:bg-navy transition-all font-bold"
                     required
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-600 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
                 </div>
               </div>
 
