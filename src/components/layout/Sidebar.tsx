@@ -36,13 +36,18 @@ export default function Sidebar() {
   return (
     <aside className="w-72 bg-navy p-8 flex flex-col justify-between h-screen sticky top-0 border-r border-white/5">
       <div>
-        <div className="flex items-center gap-4 mb-14 group cursor-pointer" onClick={() => router.push('/dashboard')}>
-          <div className="w-12 h-12 bg-university-orange rounded-2xl flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-500">
-            <GraduationCap className="w-8 h-8 text-white" />
+        <div className="flex items-center gap-3 mb-12 group cursor-pointer px-2" onClick={() => router.push('/dashboard')}>
+          <div className="relative">
+            <div className="w-12 h-12 bg-university-blue rounded-xl flex items-center justify-center shadow-lg border border-white/10 group-hover:bg-university-orange transition-all duration-500 transform group-hover:rotate-6">
+              <GraduationCap className="w-7 h-7 text-white" />
+            </div>
+            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-university-orange rounded-full border-4 border-navy flex items-center justify-center shadow-lg">
+              <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+            </div>
           </div>
           <div className="flex flex-col">
-            <h1 className="text-xl font-playfair font-bold text-white tracking-tight">TakshConnect</h1>
-            <span className="text-[8px] font-bold text-university-orange uppercase tracking-[0.3em]">University AI Portal</span>
+            <h1 className="text-xl font-playfair font-black text-white tracking-tighter leading-none">Taksh<span className="text-university-orange">Connect</span></h1>
+            <span className="text-[7px] font-black text-white/30 uppercase tracking-[0.5em] mt-1.5">Official University Portal</span>
           </div>
         </div>
 

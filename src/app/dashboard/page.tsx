@@ -65,18 +65,20 @@ export default function DashboardPage() {
       <Sidebar />
       <BottomNavBar />
 
-      <main className="flex-1 p-6 md:p-12 overflow-y-auto">
+      <main className="flex-1 p-8 md:p-16 overflow-y-auto">
+        <div className="max-w-7xl mx-auto">
         {/* Header: Personalized Identity */}
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
-          <div>
-            <div className="flex items-center gap-2 text-university-orange font-black uppercase tracking-[0.3em] text-[10px] mb-2">
-              <GraduationCap className="w-4 h-4 fill-university-orange" /> Profile Verified: {data?.profile?.roll_number}
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-university-orange font-black uppercase tracking-[0.4em] text-[9px] mb-2">
+              <div className="w-1.5 h-1.5 bg-university-orange rounded-full animate-pulse" />
+              Verified Scholar: {data?.profile?.roll_number}
             </div>
-            <h1 className="text-4xl md:text-5xl font-playfair font-bold text-university-blue dark:text-white tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-playfair font-black text-university-blue dark:text-white tracking-tight leading-tight">
               Welcome back, <span className="text-university-orange">{data?.profile?.name.split(" ")[0]}</span>
             </h1>
-            <p className="text-gray-500 dark:text-white/40 font-medium">
-              Your academic command center is synchronized.
+            <p className="text-gray-500 dark:text-white/40 font-medium text-lg">
+              Your institutional command center is ready.
             </p>
           </div>
           <div className="flex items-center gap-4">
@@ -240,6 +242,7 @@ export default function DashboardPage() {
             </div>
 
           </div>
+        </div>
         </div>
       </main>
     </div>

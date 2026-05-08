@@ -47,6 +47,7 @@ export default function InternshipBoard() {
       <Sidebar />
       <BottomNavBar />
       <main className="flex-1 overflow-y-auto">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
         {/* Hero Section */}
         <section className="bg-university-blue py-16 px-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl" />
@@ -104,6 +105,7 @@ export default function InternshipBoard() {
             </div>
           )}
         </section>
+        </div>
       </main>
     </div>
   );

@@ -114,6 +114,7 @@ export default function NotesPage() {
       <Sidebar />
       <BottomNavBar />
       <div className="flex-1 overflow-y-auto">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-12">
       {/* Header Section - University Theme */}
       <section className="bg-university-blue py-16 px-6 relative overflow-hidden">
         <div className="container mx-auto relative z-10">
@@ -244,6 +245,7 @@ export default function NotesPage() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
       </div>
     </div>
   );
