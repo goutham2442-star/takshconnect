@@ -3,15 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #0A0A1A;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  
-  --font-heading: var(--font-playfair);
-  --font-body: var(--font-inter);
-
+  /* Official University Branding */
   --color-university-blue: #003366;
   --color-university-blue-light: #004C99;
   --color-university-orange: #F26522;
@@ -23,6 +16,10 @@
   --color-navy: #003366;
   --color-navy-surface: #004080;
   --color-navy-card: #00509E;
+
+  /* Font Theme Mappings */
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {
