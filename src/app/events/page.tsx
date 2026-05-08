@@ -55,17 +55,17 @@ export default function EventsPage() {
       <main className="flex-1 p-12 overflow-y-auto">
         <header className="flex justify-between items-end mb-16">
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-orange-600 font-bold uppercase tracking-widest text-xs">
-              <Zap className="w-4 h-4" /> Campus Community
+            <div className="flex items-center gap-2 text-university-orange font-bold uppercase tracking-widest text-xs">
+              <Calendar className="w-4 h-4" /> Campus Community
             </div>
-            <h1 className="text-5xl font-playfair font-bold text-navy dark:text-white tracking-tight">
-              Campus <span className="text-orange-600">Events</span>
+            <h1 className="text-5xl font-playfair font-bold text-university-blue dark:text-white tracking-tight">
+              Campus <span className="text-university-orange">Events</span>
             </h1>
             <p className="text-gray-500 max-w-xl text-lg font-medium">
               Stay connected with everything happening at Takshashila. From elite hackathons to cultural festivals.
             </p>
           </div>
-          <button className="px-10 py-5 bg-orange-600 text-white rounded-2xl font-bold shadow-xl shadow-orange-600/20 hover:bg-orange-700 hover:scale-105 transition-all flex items-center gap-3">
+          <button className="px-10 py-5 bg-university-orange text-white rounded-full font-bold shadow-xl shadow-university-orange/20 hover:bg-university-orange-dark hover:scale-105 transition-all flex items-center gap-3">
             <Plus className="w-5 h-5" /> Submit Event
           </button>
         </header>
@@ -116,7 +116,7 @@ function EventCard({ event, i, onRSVP }: { event: any, i: number, onRSVP: () => 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: i * 0.1 }}
-      className="group bg-white dark:bg-navy-card rounded-[40px] border border-gray-100 dark:border-white/5 overflow-hidden hover:border-orange-500/20 transition-all duration-500 shadow-sm hover:shadow-2xl"
+      className="group bg-white dark:bg-navy-card rounded-[40px] border border-gray-100 dark:border-white/5 overflow-hidden hover:border-university-orange/20 transition-all duration-500 shadow-sm hover:shadow-2xl"
     >
       <div className="h-64 bg-navy relative overflow-hidden">
         {event.poster_image_url ? (
@@ -131,7 +131,7 @@ function EventCard({ event, i, onRSVP }: { event: any, i: number, onRSVP: () => 
           <div className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 text-white text-xs font-bold uppercase tracking-widest">
             {event.category}
           </div>
-          <div className="bg-orange-600 px-4 py-2 rounded-xl text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-2 shadow-lg">
+          <div className="bg-university-orange px-4 py-2 rounded-xl text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-2 shadow-lg">
             <Clock className="w-3 h-3" /> {timeLeft}
           </div>
         </div>
@@ -139,28 +139,28 @@ function EventCard({ event, i, onRSVP }: { event: any, i: number, onRSVP: () => 
 
       <div className="p-10 space-y-8">
         <div className="space-y-4">
-          <h3 className="text-2xl font-playfair font-bold text-navy dark:text-white group-hover:text-orange-600 transition-colors">{event.title}</h3>
+          <h3 className="text-2xl font-playfair font-bold text-university-blue dark:text-white group-hover:text-university-orange transition-colors">{event.title}</h3>
           <p className="text-gray-500 dark:text-white/40 text-sm leading-relaxed line-clamp-3">{event.description}</p>
         </div>
 
         <div className="space-y-4 pt-6 border-t border-gray-100 dark:border-white/5">
-          <div className="flex items-center gap-3 text-sm font-bold text-navy dark:text-white">
-            <Calendar className="w-5 h-5 text-orange-600" />
+          <div className="flex items-center gap-3 text-sm font-bold text-university-blue dark:text-white">
+            <Calendar className="w-5 h-5 text-university-orange" />
             {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
           </div>
           <div className="flex items-center gap-3 text-sm font-bold text-gray-500 dark:text-white/40">
-            <MapPin className="w-5 h-5 text-orange-600" />
+            <MapPin className="w-5 h-5 text-university-orange" />
             {event.venue}
           </div>
           <div className="flex items-center gap-3 text-sm font-bold text-gray-400">
-            <Users className="w-5 h-5 text-orange-600" />
+            <Users className="w-5 h-5 text-university-orange" />
             {event.rsvp_count} Students RSVP'd
           </div>
         </div>
 
         <button 
           onClick={onRSVP}
-          className="w-full py-5 bg-navy dark:bg-orange-600 text-white rounded-2xl font-bold hover:bg-orange-700 hover:shadow-orange-600/30 transition-all shadow-lg"
+          className="w-full py-5 bg-university-blue hover:bg-university-blue-light text-white rounded-full font-bold transition-all shadow-lg"
         >
           RSVP Now
         </button>

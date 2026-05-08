@@ -14,7 +14,7 @@ export default function ApplyButton() {
         animate={{ x: 0, opacity: 1 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="flex items-center gap-2 bg-gold text-navy font-bold px-6 py-4 rounded-full shadow-xl shadow-gold/20"
+        className="flex items-center gap-2 bg-university-orange text-white font-bold px-6 py-4 rounded-full shadow-xl shadow-university-orange/20"
       >
         Apply Now
         <ArrowRight className="w-4 h-4" />

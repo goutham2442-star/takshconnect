@@ -84,18 +84,18 @@ export default function LoginPage() {
         >
           <div className="flex items-center gap-4 mb-8">
             <div className="w-16 h-16 rounded-[22px] bg-white flex items-center justify-center shadow-2xl shadow-white/10">
-              <GraduationCap className="w-10 h-10 text-orange-600" />
+              <GraduationCap className="w-10 h-10 text-university-orange" />
             </div>
             <div>
-              <h1 className="text-4xl font-playfair font-bold tracking-tight">TakshConnect</h1>
-              <p className="text-xs uppercase tracking-[0.3em] text-gold font-black">Official Student Portal</p>
+              <h1 className="text-4xl font-playfair font-bold tracking-tight text-white">TakshConnect</h1>
+              <p className="text-xs uppercase tracking-[0.3em] text-university-orange font-black">Official Student Portal</p>
             </div>
           </div>
           
           <div className="space-y-6">
-            <h2 className="text-6xl font-playfair font-bold leading-tight">
+            <h2 className="text-6xl font-playfair font-bold leading-tight text-white">
               Fly High with <br />
-              <span className="text-gold italic">Confidence.</span>
+              <span className="text-university-orange italic">Confidence.</span>
             </h2>
             <p className="text-white/70 text-xl font-medium max-w-md leading-relaxed">
               Step into your academic command center. Manage your journey with the intelligence of TakshConnect.
@@ -135,13 +135,13 @@ export default function LoginPage() {
               <div className="space-y-3">
                 <label className="text-[10px] font-black uppercase tracking-widest text-navy/60 dark:text-gold/60 ml-2">College Email</label>
                 <div className="relative group">
-                  <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-orange-600 transition-colors" />
+                  <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-university-orange transition-colors" />
                   <input 
                     type="email" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="yourname@example.com"
-                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-5 pl-14 pr-6 text-navy dark:text-white focus:outline-none focus:border-orange-500 focus:bg-white dark:focus:bg-navy transition-all font-bold"
+                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-full py-5 pl-14 pr-6 text-navy dark:text-white focus:outline-none focus:border-university-orange focus:bg-white dark:focus:bg-navy transition-all font-bold"
                     required
                   />
                 </div>
@@ -150,19 +150,19 @@ export default function LoginPage() {
               <div className="space-y-3">
                 <label className="text-[10px] font-black uppercase tracking-widest text-navy/60 dark:text-gold/60 ml-2">Security Key</label>
                 <div className="relative group">
-                  <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-orange-600 transition-colors" />
+                  <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-university-orange transition-colors" />
                   <input 
                     type={showPassword ? "text" : "password"} 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-2xl py-5 pl-14 pr-12 text-navy dark:text-white focus:outline-none focus:border-orange-500 focus:bg-white dark:focus:bg-navy transition-all font-bold"
+                    className="w-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-full py-5 pl-14 pr-12 text-navy dark:text-white focus:outline-none focus:border-university-orange focus:bg-white dark:focus:bg-navy transition-all font-bold"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-600 transition-colors"
+                    className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-university-orange transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -184,7 +184,7 @@ export default function LoginPage() {
               <button 
                 type="submit"
                 disabled={loading}
-                className="w-full h-16 bg-orange-600 hover:bg-orange-700 text-white font-black uppercase tracking-[0.2em] text-xs rounded-2xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-orange-600/30 hover:shadow-orange-600/40 group overflow-hidden relative"
+                className="w-full h-16 bg-university-orange hover:bg-university-orange-dark text-white font-black uppercase tracking-[0.2em] text-xs rounded-full flex items-center justify-center gap-3 transition-all shadow-xl shadow-university-orange/30 hover:shadow-university-orange/40 group overflow-hidden relative"
               >
                 <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 <span className="relative z-10 flex items-center gap-3">
@@ -203,7 +203,7 @@ export default function LoginPage() {
             <div className="mt-12 flex flex-col items-center gap-6">
               <p className="text-gray-400 dark:text-white/20 text-xs font-bold">
                 NEW TO TAKSHASHILA?{" "}
-                <a href="/signup" className="text-orange-600 dark:text-gold font-black hover:underline underline-offset-4 ml-1">ENROLL NOW</a>
+                <a href="/signup" className="text-university-orange font-black hover:underline underline-offset-4 ml-1">ENROLL NOW</a>
               </p>
             </div>
           </div>

@@ -43,14 +43,14 @@ export default function Chatbot() {
             className="w-80 md:w-96 h-[500px] bg-navy-card border border-white/10 rounded-2xl shadow-2xl flex flex-col mb-4 overflow-hidden"
           >
             {/* Header */}
-            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-orange-600/10">
+            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-university-blue/10">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-orange-600 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-university-orange flex items-center justify-center">
                   <Bot className="w-5 h-5 text-white" />
                 </div>
                 <div>
                   <h4 className="text-white font-semibold text-sm">Taksh Assistant</h4>
-                  <p className="text-[10px] text-orange-500 flex items-center gap-1">
+                  <p className="text-[10px] text-university-orange flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                     AI Powered
                   </p>
@@ -72,7 +72,7 @@ export default function Chatbot() {
                 <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${
                     msg.role === "user" 
-                    ? "bg-orange-600 text-white rounded-tr-none" 
+                    ? "bg-university-blue text-white rounded-tr-none shadow-sm" 
                     : "bg-white/5 text-white/80 border border-white/10 rounded-tl-none"
                   }`}>
                     {msg.text}
@@ -90,11 +90,11 @@ export default function Chatbot() {
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSend()}
                   placeholder="Type your message..."
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-orange-500 transition-all"
+                  className="w-full bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-university-orange transition-all"
                 />
                 <button 
                   onClick={handleSend}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-orange-500 hover:text-white transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-university-orange hover:text-white transition-colors"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -112,7 +112,7 @@ export default function Chatbot() {
           if (isMinimized) setIsMinimized(false);
           else setIsOpen(!isOpen);
         }}
-        className="w-14 h-14 rounded-full bg-orange-600 shadow-lg shadow-orange-600/30 flex items-center justify-center text-white border-2 border-white/10"
+        className="w-14 h-14 rounded-full bg-university-orange shadow-lg shadow-university-orange/30 flex items-center justify-center text-white border-2 border-white/10"
       >
         {isOpen && !isMinimized ? <X className="w-6 h-6" /> : <Bot className="w-6 h-6" />}
       </motion.button>

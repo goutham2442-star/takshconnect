@@ -30,20 +30,20 @@ export default function BottomNavBar() {
             >
               <div className={cn(
                 "p-2 rounded-xl transition-all duration-300",
-                isActive ? "bg-orange-600 text-white shadow-lg shadow-orange-600/20" : "text-gray-400"
+                isActive ? "bg-university-orange text-white shadow-lg shadow-university-orange/20" : "text-gray-400"
               )}>
                 <tab.icon className="w-6 h-6" />
               </div>
               <span className={cn(
                 "text-[10px] font-black uppercase tracking-widest transition-all",
-                isActive ? "text-orange-600 opacity-100" : "text-gray-400 opacity-0"
+                isActive ? "text-university-orange opacity-100" : "text-gray-400 opacity-0"
               )}>
                 {tab.name}
               </span>
               {isActive && (
                 <motion.div 
                   layoutId="bottom-nav-dot"
-                  className="absolute -top-1 w-1 h-1 bg-orange-600 rounded-full"
+                  className="absolute -top-1 w-1 h-1 bg-university-orange rounded-full"
                 />
               )}
             </button>

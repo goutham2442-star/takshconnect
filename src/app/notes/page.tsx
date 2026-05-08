@@ -114,8 +114,8 @@ export default function NotesPage() {
       <Sidebar />
       <BottomNavBar />
       <div className="flex-1 overflow-y-auto">
-      {/* Header Section - Orange Theme */}
-      <section className="bg-orange-600 py-16 px-6 relative overflow-hidden">
+      {/* Header Section - University Theme */}
+      <section className="bg-university-blue py-16 px-6 relative overflow-hidden">
         <div className="container mx-auto relative z-10">
           <h1 className="text-4xl md:text-6xl font-playfair font-bold text-white mb-6">Smart Notes Hub</h1>
           <p className="text-white/80 text-lg max-w-2xl mb-12">
@@ -123,7 +123,7 @@ export default function NotesPage() {
           </p>
 
           {/* Search Bar */}
-          <div className="max-w-4xl bg-white rounded-2xl shadow-2xl p-2 flex flex-col md:flex-row gap-2">
+          <div className="max-w-4xl bg-white rounded-full shadow-2xl p-2 flex flex-col md:flex-row gap-2 border border-white/10">
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input 
@@ -166,8 +166,8 @@ export default function NotesPage() {
       {/* Top Rated Horizontal Section */}
       <section className="py-12 px-6 container mx-auto">
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
-            <Trophy className="w-6 h-6 text-navy" />
+          <div className="w-10 h-10 bg-university-orange rounded-full flex items-center justify-center">
+            <Trophy className="w-6 h-6 text-white" />
           </div>
           <h2 className="text-2xl font-playfair font-bold text-navy dark:text-white">Top Rated This Week</h2>
         </div>
@@ -207,7 +207,7 @@ export default function NotesPage() {
       {/* Floating Upload Button */}
       <button 
         onClick={() => setIsUploadOpen(true)}
-        className="fixed bottom-8 right-8 w-16 h-16 bg-gold rounded-full shadow-2xl flex items-center justify-center text-navy hover:scale-110 active:scale-95 transition-all z-40 border-4 border-white dark:border-navy"
+        className="fixed bottom-8 right-8 w-16 h-16 bg-university-orange rounded-full shadow-2xl flex items-center justify-center text-white hover:scale-110 active:scale-95 transition-all z-40 border-4 border-white dark:border-navy"
       >
         <Plus className="w-8 h-8 stroke-3" />
       </button>
@@ -228,7 +228,7 @@ export default function NotesPage() {
             className="fixed bottom-28 right-8 left-8 md:left-auto md:w-96 bg-navy-card border border-gold/30 rounded-2xl shadow-2xl p-6 z-50 overflow-hidden"
           >
             <div className="flex justify-between items-start mb-4">
-              <div className="flex items-center gap-2 text-gold">
+              <div className="flex items-center gap-2 text-university-orange">
                 <Check className="w-5 h-5" />
                 <h4 className="font-bold uppercase tracking-widest text-sm">AI Note Summary</h4>
               </div>

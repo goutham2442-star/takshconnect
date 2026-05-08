@@ -72,8 +72,8 @@ export default function OnboardingPage() {
     <div className="min-h-screen bg-navy flex items-center justify-center p-6 relative overflow-hidden">
       {/* Background Decorative */}
       <div className="absolute top-0 left-0 w-full h-full">
-        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-orange-600/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-gold/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-university-blue/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-university-orange/5 rounded-full blur-3xl" />
       </div>
 
       <motion.div 
@@ -81,8 +81,9 @@ export default function OnboardingPage() {
         animate={{ scale: 1, opacity: 1 }}
         className="w-full max-w-2xl bg-white dark:bg-navy-card rounded-3xl shadow-2xl overflow-hidden relative z-10 border border-white/5"
       >
-        <div className="bg-orange-600 p-8 text-center">
-          <GraduationCap className="w-12 h-12 text-gold mx-auto mb-4" />
+        <div className="bg-university-blue p-8 text-center relative">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-2xl" />
+          <GraduationCap className="w-12 h-12 text-university-orange mx-auto mb-4" />
           <h2 className="text-3xl font-playfair font-bold text-white">Complete Your Profile</h2>
           <p className="text-white/60">Help us personalize your TakshConnect experience</p>
         </div>
@@ -93,13 +94,13 @@ export default function OnboardingPage() {
             <div>
               <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Full Name</label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-600" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-university-orange" />
                 <input 
                   type="text" 
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Goutham Gagan"
-                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 transition-all"
+                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-full py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-university-orange transition-all font-bold"
                   required
                 />
               </div>
@@ -109,13 +110,13 @@ export default function OnboardingPage() {
             <div>
               <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Roll Number</label>
               <div className="relative">
-                <Hash className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-600" />
+                <Hash className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-university-orange" />
                 <input 
                   type="text" 
                   value={rollNumber}
                   onChange={(e) => setRollNumber(e.target.value)}
                   placeholder="2026CSE001"
-                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 transition-all"
+                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-full py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-university-orange transition-all font-bold"
                   required
                 />
               </div>
@@ -125,11 +126,11 @@ export default function OnboardingPage() {
             <div>
               <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Branch</label>
               <div className="relative">
-                <GraduationCap className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-600" />
+                <GraduationCap className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-university-orange" />
                 <select 
                   value={branch}
                   onChange={(e) => setBranch(e.target.value)}
-                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 appearance-none transition-all"
+                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-full py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-university-orange appearance-none transition-all font-bold"
                   required
                 >
                   {branches.map(b => <option key={b} value={b} className="bg-navy">{b}</option>)}
@@ -141,11 +142,11 @@ export default function OnboardingPage() {
             <div>
               <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Current Year</label>
               <div className="relative">
-                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-orange-600" />
+                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-university-orange" />
                 <select 
                   value={year}
                   onChange={(e) => setYear(parseInt(e.target.value))}
-                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-orange-500 appearance-none transition-all"
+                  className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-full py-4 pl-12 pr-4 text-navy dark:text-white focus:outline-none focus:border-university-orange appearance-none transition-all font-bold"
                   required
                 >
                   {years.map((y, i) => <option key={y} value={i+1} className="bg-navy">{y} Year</option>)}
@@ -157,7 +158,7 @@ export default function OnboardingPage() {
           <button 
             type="submit"
             disabled={loading}
-            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-5 rounded-2xl flex items-center justify-center gap-3 transition-all group shadow-xl shadow-orange-600/20"
+            className="w-full bg-university-orange hover:bg-university-orange-dark text-white font-bold py-5 rounded-full flex items-center justify-center gap-3 transition-all group shadow-xl shadow-university-orange/20"
           >
             {loading ? (
               <Loader2 className="w-6 h-6 animate-spin" />

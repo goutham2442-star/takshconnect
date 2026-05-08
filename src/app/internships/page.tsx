@@ -48,20 +48,20 @@ export default function InternshipBoard() {
       <BottomNavBar />
       <main className="flex-1 overflow-y-auto">
         {/* Hero Section */}
-        <section className="bg-orange-600 py-16 px-12 relative overflow-hidden">
+        <section className="bg-university-blue py-16 px-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl" />
           <div className="relative z-10">
             <div className="flex items-center gap-2 text-white/80 font-bold uppercase tracking-widest text-[10px] mb-4">
               <Sparkles className="w-4 h-4" /> AI-Powered Career Hub
             </div>
             <h1 className="text-5xl font-playfair font-bold text-white mb-6">
-              Internship <span className="text-orange-200">Board</span>
+              Internship <span className="text-university-orange">Board</span>
             </h1>
             <p className="text-white/80 text-sm max-w-xl mb-10">
               Curated opportunities from AICTE, IBM, and top global tech firms. Validated for Takshashila students.
             </p>
 
-            <div className="max-w-4xl bg-white/20 backdrop-blur-xl border border-white/30 p-2 rounded-2xl flex flex-col md:flex-row gap-2 shadow-2xl">
+            <div className="max-w-4xl bg-white/10 backdrop-blur-xl border border-white/20 p-2 rounded-full flex flex-col md:flex-row gap-2 shadow-2xl">
               <div className="flex-1 relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/60" />
                 <input 
@@ -150,7 +150,7 @@ function InternshipCard({ item, index }: { item: any, index: number }) {
       className="bg-white dark:bg-navy-card rounded-[32px] border border-gray-100 dark:border-white/5 p-8 group hover:border-orange-500/20 transition-all flex flex-col h-full shadow-sm hover:shadow-xl"
     >
       <div className="flex justify-between items-start mb-6">
-        <div className="w-14 h-14 bg-orange-50 dark:bg-navy rounded-2xl flex items-center justify-center shadow-sm font-black text-orange-600 text-xl border border-orange-100">
+        <div className="w-14 h-14 bg-university-blue/5 dark:bg-white/5 rounded-2xl flex items-center justify-center shadow-sm font-black text-university-blue dark:text-university-orange text-xl border border-university-blue/10">
           {item.provider[0]}
         </div>
         <div className="flex gap-2">
@@ -160,8 +160,8 @@ function InternshipCard({ item, index }: { item: any, index: number }) {
       </div>
 
       <div className="space-y-2 mb-6">
-        <h3 className="text-xl font-bold text-navy dark:text-white line-clamp-1 group-hover:text-orange-600 transition-colors">{item.title}</h3>
-        <p className="text-orange-600 font-bold text-xs uppercase tracking-widest">{item.provider}</p>
+        <h3 className="text-xl font-bold text-university-blue dark:text-white line-clamp-1 group-hover:text-university-orange transition-colors">{item.title}</h3>
+        <p className="text-university-orange font-bold text-xs uppercase tracking-widest">{item.provider}</p>
       </div>
 
       <p className="text-gray-500 dark:text-white/40 text-sm line-clamp-2 mb-6 flex-1">{item.description}</p>
@@ -172,7 +172,7 @@ function InternshipCard({ item, index }: { item: any, index: number }) {
             <Clock className="w-4 h-4" />
             <span className={timerColor}>{timeLeft}</span>
           </div>
-          <button className="text-gray-300 hover:text-orange-500 transition-colors">
+          <button className="text-gray-300 hover:text-university-orange transition-colors">
             <Heart className="w-5 h-5" />
           </button>
         </div>
@@ -181,7 +181,7 @@ function InternshipCard({ item, index }: { item: any, index: number }) {
           <a 
             href={item.apply_url} 
             target="_blank" 
-            className="flex-1 bg-orange-600 text-white py-4 rounded-2xl font-bold text-sm text-center hover:bg-orange-700 hover:shadow-orange-600/20 shadow-lg transition-all flex items-center justify-center gap-2"
+            className="flex-1 bg-university-orange text-white py-4 rounded-full font-bold text-sm text-center hover:bg-university-orange-dark hover:shadow-university-orange/20 shadow-lg transition-all flex items-center justify-center gap-2"
           >
             Apply Now <ArrowUpRight className="w-4 h-4" />
           </a>

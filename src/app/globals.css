@@ -12,13 +12,13 @@
   --font-heading: var(--font-playfair);
   --font-body: var(--font-inter);
 
-  --color-maroon: #7B1C2E;
-  --color-maroon-light: #9B2335;
-  --color-maroon-dark: #5A1220;
+  --color-university-blue: #003366;
+  --color-university-blue-light: #004C99;
+  --color-university-orange: #F26522;
+  --color-university-orange-dark: #D14D10;
 
+  --color-maroon: #7B1C2E;
   --color-gold: #C9A84C;
-  --color-gold-light: #D4B96A;
-  --color-gold-dark: #A88A35;
 
   --color-navy: #003366;
   --color-navy-surface: #004080;
