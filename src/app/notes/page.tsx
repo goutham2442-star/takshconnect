@@ -110,7 +110,7 @@ export default function NotesPage() {
   }, [search, dept, sem]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-navy flex flex-col lg:flex-row pb-24 lg:pb-0">
+    <div className="min-h-screen bg-background flex flex-col lg:flex-row pb-24 lg:pb-0">
       <Sidebar />
       <BottomNavBar />
       <div className="flex-1 overflow-y-auto">

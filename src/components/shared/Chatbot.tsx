@@ -20,15 +20,26 @@ export default function Chatbot() {
     
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
+      
+      // First check if server is reachable
+      const healthRes = await fetch(`${apiUrl}/health`).catch(() => null);
+      if (!healthRes || !healthRes.ok) {
+        setChat(prev => [...prev, { role: "bot", text: "I'm having trouble connecting to my AI core. Please make sure the TakshConnect backend is running on port 8001." }]);
+        return;
+      }
+
       const response = await fetch(`${apiUrl}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: userMsg.text }),
       });
+      
+      if (!response.ok) throw new Error("API error");
+      
       const data = await response.json();
       setChat(prev => [...prev, { role: "bot", text: data.reply }]);
     } catch (error) {
-      setChat(prev => [...prev, { role: "bot", text: "Sorry, I'm having trouble connecting to the server." }]);
+      setChat(prev => [...prev, { role: "bot", text: "Sorry, I encountered an error. Please try again in a moment." }]);
     }
   };
 

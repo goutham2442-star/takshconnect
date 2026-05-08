@@ -23,7 +23,7 @@ export default function LostFoundPage() {
     const fetchItems = async () => {
       setLoading(true);
       const { data } = await supabase
-        .table("lost_found")
+        .from("lost_found")
         .select("*")
         .eq("status", status)
         .order("created_at", { ascending: false });
@@ -51,7 +51,7 @@ export default function LostFoundPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-navy flex">
+    <div className="min-h-screen bg-background flex">
       <Sidebar />
       
       <main className="flex-1 p-12 overflow-y-auto">

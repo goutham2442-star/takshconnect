@@ -50,7 +50,7 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-navy flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <motion.div 
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -61,7 +61,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-navy flex flex-col lg:flex-row pb-24 lg:pb-0">
+    <div className="min-h-screen bg-background flex flex-col lg:flex-row pb-24 lg:pb-0">
       <Sidebar />
       <BottomNavBar />
 

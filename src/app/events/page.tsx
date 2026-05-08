@@ -12,7 +12,7 @@ export default function EventsPage() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const { data } = await supabase.table("events").select("*").order("date", { ascending: true });
+      const { data } = await supabase.from("events").select("*").order("date", { ascending: true });
       setEvents(data || []);
       setLoading(false);
     };
@@ -41,7 +41,7 @@ export default function EventsPage() {
     if (!event) return;
     
     const { error } = await supabase
-      .table("events")
+      .from("events")
       .update({ rsvp_count: event.rsvp_count + 1 })
       .eq("id", eventId);
       
@@ -49,7 +49,7 @@ export default function EventsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-navy flex">
+    <div className="min-h-screen bg-background flex">
       <Sidebar />
       
       <main className="flex-1 p-12 overflow-y-auto">

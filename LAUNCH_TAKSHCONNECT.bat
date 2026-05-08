@@ -1,33 +1,30 @@
 @echo off
-title TakshConnect Server Manager
-echo ==========================================
-echo Starting TakshConnect Full-Stack Servers...
-echo ==========================================
+TITLE TakshConnect - Institutional Command Center
+SETLOCAL EnableDelayedExpansion
+
+echo ===================================================
+echo   TakshConnect: Official University Portal Launch
+echo ===================================================
 echo.
 
-echo [1/3] Launching FastAPI Backend (Port 8001)...
-start /B cmd /c "cd backend && call venv\Scripts\activate.bat && python main.py"
-timeout /t 5 >nul
-
-echo [2/3] Launching Next.js Frontend (Port 3000)...
-start /B cmd /c "npm run dev"
-timeout /t 10 >nul
-
-echo [3/3] Opening TakshConnect in your browser...
-start http://localhost:3000/login
-
+:: 1. Cleanup existing ports
+echo [1/3] Clearing ports 3000 and 8001...
+for /f "tokens=5" %%a in ('netstat -aon ^| findstr :3000') do taskkill /f /pid %%a >nul 2>&1
+for /f "tokens=5" %%a in ('netstat -aon ^| findstr :8001') do taskkill /f /pid %%a >nul 2>&1
+echo Ports cleared.
 echo.
-echo ==========================================
-echo All servers are RUNNING.
-echo DO NOT close this window.
-echo Press any key to STOP all servers and exit...
-echo ==========================================
-pause >nul
 
+:: 2. Start Backend
+echo [2/3] Starting AI Backend (Port 8001)...
+cd backend
+start "TakshConnect-Backend" cmd /c "python -m venv venv && venv\Scripts\activate && pip install -r requirements.txt && python main.py"
+cd ..
+echo Backend starting in new window...
 echo.
-echo Stopping servers...
-taskkill /F /IM node.exe >nul 2>&1
-taskkill /F /IM python.exe >nul 2>&1
-echo Done! Goodbye.
-timeout /t 2 >nul
-exit
+
+:: 3. Start Frontend
+echo [3/3] Starting Next.js Frontend (Port 3000)...
+echo.
+npm run dev
+
+pause

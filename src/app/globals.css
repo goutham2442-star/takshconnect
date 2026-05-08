@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0A0A1A;
+  --background: #f8f9fa;
+  --foreground: #001a33;
 
   /* Official University Branding */
   --color-university-blue: #003366;
@@ -24,7 +24,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #002244;
+    --background: #001a33;
     --foreground: #ffffff;
   }
 }
